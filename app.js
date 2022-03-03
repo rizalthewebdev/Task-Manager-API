@@ -1,14 +1,16 @@
 const express = require("express");
+const cors = require("cors");
 const connectDB = require("./db/connect");
 const app = express();
 const tasks = require("./routes/tasksRoute");
 require("dotenv").config();
-const notFound = require('./middleware/notFound');
-const errorHandlerMiddleware = require('./middleware/error-handler');
+const notFound = require("./middleware/notFound");
+const errorHandlerMiddleware = require("./middleware/error-handler");
 
 // Middleware
-app.use(express.static('./public'));
+app.use(express.static("./public"));
 app.use(express.json());
+app.use(cors)
 
 // Routes
 app.use("/api/v1/tasks", tasks);
@@ -27,7 +29,7 @@ const start = async () => {
       );
    } catch (error) {
       console.log({
-         message: error.message
+         message: error.message,
       });
    }
 };
